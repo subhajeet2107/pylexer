@@ -48,6 +48,18 @@ while lexer.get_look_ahead():
 
 ```
 
+## Token Definition
+Tokens are defined with ```TokenDefinition``` class that holds token name and regular expression. Token name can be empty, and in that case lexer will ignore/skip such tokens
+
+## Lexer Configuration
+The lexer configuration holds a list of all token definitions. With LexerDictConfig it can be easily created from an array where keys are regular expressions and values are names of tokens
+
+## Full scan
+Pylexer's static scan method can be used to scan given input string and returns a list of tokens, Pylexer can also be used to walk through scanned tokens with single look ahead
+
 ## License
 
 MIT license. See `LICENSE.md` for more information.
+
+## Contributors
+Pylexer is inspired from PHP's Lexer(https://github.com/tmilos/lexer) and takes code heavily from doctrine API, all credits due with Milos Tomic
