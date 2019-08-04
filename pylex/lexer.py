@@ -82,7 +82,13 @@ class PyLexer:
 	def move_next(self):
 		self.peek = 0
 		self.token = self.lookahead
-		self.lookahead = self.tokens[self.position + 1] if self.tokens[self.position] else None
+
+		try:
+			self.lookahead = self.tokens[self.position]
+			self.position += 1
+		except IndexError:
+			self.lookahead = None
+
 		return self.lookahead != None
 
 	def skip_until(self, token_name):
@@ -94,10 +100,11 @@ class PyLexer:
 			self.move_next()
 
 	def peeks(self):
-		if self.tokens[self.position + self.peek]:
-			self.peek += 1
-			return self.tokens[self.position + self.peek]
-		else:
+		try:
+			if self.tokens[self.position + self.peek]:
+				self.peek += 1
+				return self.tokens[self.position + self.peek]
+		except IndexError:
 			return None
 
 
