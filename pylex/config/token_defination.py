@@ -16,7 +16,7 @@ class TokenDefination:
 		delimiter = self.find_delimeter(regex)
 
 		self.regex = '%s^%s%s%s' % (delimiter, regex, delimiter, modifiers)
-		if re.match(self.regex, '') == False:
+		if not self.regex:
 			raise IllegalArgumentError('Invalid regex for token %s : %s' % (name, regex))
 
 

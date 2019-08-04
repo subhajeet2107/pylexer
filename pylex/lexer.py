@@ -12,7 +12,7 @@ from pylex.error.custom_exception import IllegalArgumentError, UnknownTokenExcep
 
 from pylex.token import Token
 
-class Lexer:
+class PyLexer:
 
 	def __init__(self, config):
 		self.config = config
@@ -28,8 +28,9 @@ class Lexer:
 			any_match = False
 
 			for token_defination in config.get_token_definations():
-				if re.matches(token_defination.get_regex(), input_string, matches):
-					str_matched = matches[0]
+				matches = re.search(token_defination.get_regex(), input_string, flags=re.IGNORECASE)
+				if matches is not None:
+					str_matched = matches.group(0)
 					str_len = len(str_matched)
 
 					if len(token_defination.get_name()) > 0:
@@ -61,7 +62,7 @@ class Lexer:
 	def set_input(self, input_string):
 		self.input = input_string
 		self.reset()
-		self.tokens = Lexer.scan(self.config, input_string)
+		self.tokens = PyLexer.scan(self.config, input_string)
 
 	def reset(self):
 		self.position = 0
@@ -95,7 +96,7 @@ class Lexer:
 	def peeks(self):
 		if self.tokens[self.position + self.peek]:
 			self.peek += 1
-			yield self.tokens[self.position + self.peek]
+			return self.tokens[self.position + self.peek]
 		else:
 			return None
 

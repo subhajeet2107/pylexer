@@ -17,11 +17,11 @@ class LexerDictConfig(LexerConfig):
 	def __init__(self, token_definations={}):
 		self.definations = []
 
-		for k,v in token_definations:
+		for k,v in token_definations.items():
 			if type(v) == TokenDefination:
 				self.add_token_defination(v)
 			else:
-				self.add_token_defination(v, k)
+				self.add_token_defination(TokenDefination(v, k))
 
 
 	def add_token_defination(self, token_defination):
